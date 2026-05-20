@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ownersService } from "../../services/resourceService.jsx";
+
 const emptyForm = {
   name: "",
   document: "",
@@ -7,6 +8,7 @@ const emptyForm = {
   email: "",
   address: "",
 };
+
 export default function OwnersPage() {
   const [owners, setOwners] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,6 +17,7 @@ export default function OwnersPage() {
   const [editingOwner, setEditingOwner] = useState(null);
   const [detailOwner, setDetailOwner] = useState(null);
   const [message, setMessage] = useState("");
+
   async function loadOwners() {
     try {
       setLoading(true);
@@ -26,9 +29,11 @@ export default function OwnersPage() {
       setLoading(false);
     }
   }
+
   useEffect(() => {
     loadOwners();
   }, []);
+
   function handleChange(event) {
     const { name, value } = event.target;
     setForm({
@@ -36,10 +41,12 @@ export default function OwnersPage() {
       [name]: value,
     });
   }
+
   function clearForm() {
     setForm(emptyForm);
     setEditingOwner(null);
   }
+
   async function handleSubmit(event) {
     event.preventDefault();
     if (
@@ -50,6 +57,10 @@ export default function OwnersPage() {
       !form.address
     ) {
       setMessage("Preencha todos os campos.");
+      return;
+    }
+    if (!form.email.includes("@")) {
+      setMessage("Email inválido.");
       return;
     }
     try {
@@ -66,6 +77,7 @@ export default function OwnersPage() {
       setMessage("Erro ao salvar dono.");
     }
   }
+
   function handleEdit(owner) {
     setEditingOwner(owner);
     setForm({
@@ -76,6 +88,7 @@ export default function OwnersPage() {
       address: owner.address || "",
     });
   }
+
   async function handleDetails(owner) {
     try {
       const data = await ownersService.getById(owner.id);
@@ -84,6 +97,7 @@ export default function OwnersPage() {
       setMessage("Erro ao carregar detalhes.");
     }
   }
+
   async function handleDelete(owner) {
     const confirmDelete = window.confirm(`Deseja excluir ${owner.name}?`);
     if (!confirmDelete) return;
@@ -95,23 +109,36 @@ export default function OwnersPage() {
       setMessage("Erro ao excluir dono.");
     }
   }
+
   const filteredOwners = owners.filter((owner) => {
     const term = search.toLowerCase();
     return (
       owner.name?.toLowerCase().includes(term) ||
       owner.document?.toLowerCase().includes(term) ||
       owner.phone?.toLowerCase().includes(term) ||
-      owner.email?.toLowerCase().includes(term)
+      owner.email?.toLowerCase().includes(term) ||
+      owner.address?.toLowerCase().includes(term)
     );
   });
+
   if (loading) {
     return <p>Carregando donos...</p>;
   }
+
   return (
     <div>
       <h1>Donos</h1>
       <p>Gerencie os responsáveis pelos pets cadastrados.</p>
-      {message && <p>{message}</p>}
+
+      {message && (
+        <p>
+          {message}{" "}
+          <button type="button" onClick={() => setMessage("")}>
+            X
+          </button>
+        </p>
+      )}
+
       <hr />
       <h2>{editingOwner ? "Editar dono" : "Novo dono"}</h2>
       <form onSubmit={handleSubmit}>
@@ -163,10 +190,12 @@ export default function OwnersPage() {
           </button>
         )}
       </form>
+
       <hr />
       <h2>Lista de donos</h2>
+      <p>Total de donos cadastrados: {owners.length}</p>
       <input
-        placeholder="Buscar por nome, documento, telefone ou email"
+        placeholder="Buscar por nome, documento, telefone, email ou endereço"
         value={search}
         onChange={(event) => setSearch(event.target.value)}
       />
@@ -202,25 +231,16 @@ export default function OwnersPage() {
           </tbody>
         </table>
       )}
+
       {detailOwner && (
         <div>
           <hr />
           <h2>Detalhes do dono</h2>
-          <p>
-            <strong>Nome:</strong> {detailOwner.name}
-          </p>
-          <p>
-            <strong>Documento:</strong> {detailOwner.document}
-          </p>
-          <p>
-            <strong>Telefone:</strong> {detailOwner.phone}
-          </p>
-          <p>
-            <strong>Email:</strong> {detailOwner.email}
-          </p>
-          <p>
-            <strong>Endereço:</strong> {detailOwner.address}
-          </p>
+          <p><strong>Nome:</strong> {detailOwner.name}</p>
+          <p><strong>Documento:</strong> {detailOwner.document}</p>
+          <p><strong>Telefone:</strong> {detailOwner.phone}</p>
+          <p><strong>Email:</strong> {detailOwner.email}</p>
+          <p><strong>Endereço:</strong> {detailOwner.address}</p>
           <h3>Pets vinculados</h3>
           {detailOwner.pets?.length > 0 ? (
             <ul>

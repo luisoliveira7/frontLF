@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ownersService, petsService } from "../../services/resourceService.jsx";
+
 const emptyForm = {
   name: "",
   species: "",
@@ -10,6 +11,7 @@ const emptyForm = {
   notes: "",
   ownerId: "",
 };
+
 export default function PetsPage() {
   const [pets, setPets] = useState([]);
   const [owners, setOwners] = useState([]);
@@ -19,6 +21,7 @@ export default function PetsPage() {
   const [editingPet, setEditingPet] = useState(null);
   const [detailPet, setDetailPet] = useState(null);
   const [message, setMessage] = useState("");
+
   async function loadData() {
     try {
       setLoading(true);
@@ -32,9 +35,11 @@ export default function PetsPage() {
       setLoading(false);
     }
   }
+
   useEffect(() => {
     loadData();
   }, []);
+
   function handleChange(event) {
     const { name, value } = event.target;
     setForm({
@@ -42,20 +47,24 @@ export default function PetsPage() {
       [name]: value,
     });
   }
+
   function clearForm() {
     setForm(emptyForm);
     setEditingPet(null);
   }
+
   function getSizeText(size) {
     if (size === "small") return "Pequeno";
     if (size === "medium") return "Médio";
     if (size === "large") return "Grande";
     return size;
   }
+
   function formatDate(date) {
     if (!date) return "-";
     return new Date(date).toLocaleString("pt-BR");
   }
+
   function formatMoney(value) {
     if (!value) return "R$ 0,00";
     return Number(value).toLocaleString("pt-BR", {
@@ -63,6 +72,7 @@ export default function PetsPage() {
       currency: "BRL",
     });
   }
+
   function getStatusText(status) {
     if (status === "scheduled") return "Agendado";
     if (status === "in_progress") return "Em andamento";
@@ -70,6 +80,7 @@ export default function PetsPage() {
     if (status === "canceled") return "Cancelado";
     return status;
   }
+
   async function handleSubmit(event) {
     event.preventDefault();
     if (
@@ -83,7 +94,6 @@ export default function PetsPage() {
       setMessage("Preencha os campos obrigatórios.");
       return;
     }
-
     if (Number(form.weight) <= 0) {
       setMessage("O peso deve ser maior que zero.");
       return;
@@ -112,6 +122,7 @@ export default function PetsPage() {
       setMessage("Erro ao salvar pet.");
     }
   }
+
   function handleEdit(pet) {
     setEditingPet(pet);
     setForm({
@@ -125,6 +136,7 @@ export default function PetsPage() {
       ownerId: String(pet.ownerId || ""),
     });
   }
+
   async function handleDetails(pet) {
     try {
       const data = await petsService.getById(pet.id);
@@ -133,6 +145,7 @@ export default function PetsPage() {
       setMessage("Erro ao carregar detalhes do pet.");
     }
   }
+
   async function handleDelete(pet) {
     const confirmDelete = window.confirm(`Deseja excluir ${pet.name}?`);
     if (!confirmDelete) return;
@@ -144,18 +157,22 @@ export default function PetsPage() {
       setMessage("Erro ao excluir pet.");
     }
   }
+
   const filteredPets = pets.filter((pet) => {
     const term = search.toLowerCase();
     return (
       pet.name?.toLowerCase().includes(term) ||
       pet.species?.toLowerCase().includes(term) ||
       pet.breed?.toLowerCase().includes(term) ||
-      pet.owner?.name?.toLowerCase().includes(term)
+      pet.owner?.name?.toLowerCase().includes(term) ||
+      pet.notes?.toLowerCase().includes(term)
     );
   });
+
   if (loading) {
     return <p>Carregando pets...</p>;
   }
+
   return (
     <div>
       <h1>Pets</h1>
@@ -214,14 +231,18 @@ export default function PetsPage() {
         <div>
           <label>Dono</label>
           <br />
-          <select name="ownerId" value={form.ownerId} onChange={handleChange}>
-            <option value="">Selecione</option>
-            {owners.map((owner) => (
-              <option key={owner.id} value={owner.id}>
-                {owner.name}
-              </option>
-            ))}
-          </select>
+          {owners.length === 0 ? (
+            <p>Nenhum dono cadastrado. Cadastre um dono antes de adicionar um pet.</p>
+          ) : (
+            <select name="ownerId" value={form.ownerId} onChange={handleChange}>
+              <option value="">Selecione</option>
+              {owners.map((owner) => (
+                <option key={owner.id} value={owner.id}>
+                  {owner.name}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
         <div>
           <label>Observações</label>
@@ -241,7 +262,7 @@ export default function PetsPage() {
       <hr />
       <h2>Lista de pets</h2>
       <input
-        placeholder="Buscar por nome, espécie, raça ou dono"
+        placeholder="Buscar por nome, espécie, raça, dono ou observações"
         value={search}
         onChange={(event) => setSearch(event.target.value)}
       />
@@ -283,28 +304,13 @@ export default function PetsPage() {
         <div>
           <hr />
           <h2>Detalhes do pet</h2>
-          <p>
-            <strong>Nome:</strong> {detailPet.name}
-          </p>
-          <p>
-            <strong>Dono:</strong> {detailPet.owner?.name || "-"}
-          </p>
-          <p>
-            <strong>Espécie:</strong> {detailPet.species}
-          </p>
-          <p>
-            <strong>Raça:</strong> {detailPet.breed}
-          </p>
-          <p>
-            <strong>Porte:</strong> {getSizeText(detailPet.size)}
-          </p>
-          <p>
-            <strong>Peso:</strong> {detailPet.weight} kg
-          </p>
-          <p>
-            <strong>Observações:</strong>{" "}
-            {detailPet.notes || "Sem observações."}
-          </p>
+          <p><strong>Nome:</strong> {detailPet.name}</p>
+          <p><strong>Dono:</strong> {detailPet.owner?.name || "-"}</p>
+          <p><strong>Espécie:</strong> {detailPet.species}</p>
+          <p><strong>Raça:</strong> {detailPet.breed}</p>
+          <p><strong>Porte:</strong> {getSizeText(detailPet.size)}</p>
+          <p><strong>Peso:</strong> {detailPet.weight} kg</p>
+          <p><strong>Observações:</strong> {detailPet.notes || "Sem observações."}</p>
           <h3>Histórico recente</h3>
           {detailPet.services?.length > 0 ? (
             <ul>
