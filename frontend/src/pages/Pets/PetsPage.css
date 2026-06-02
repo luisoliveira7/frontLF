@@ -1,0 +1,270 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.pets-container {
+  max-width: 860px;
+  margin: 40px auto;
+  padding: 0 24px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #222;
+}
+
+.pets-container h1 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.pets-container h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.pets-container > p {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.pets-container hr {
+  border: none;
+  border-top: 1px solid #e5e5e5;
+  margin: 28px 0;
+}
+
+.mensagem-pets {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f5f5f5;
+  border-left: 3px solid #222;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.mensagem-pets button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  color: #888;
+  font-weight: 600;
+}
+
+.mensagem-pets button:hover {
+  color: #222;
+}
+
+.pets-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 480px;
+}
+
+.pets-form label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 5px;
+}
+
+.pets-form input,
+.pets-form textarea,
+.pets-form select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #222;
+  background-color: #fafafa;
+  transition: border-color 0.2s;
+}
+
+.pets-form input:focus,
+.pets-form textarea:focus,
+.pets-form select:focus {
+  outline: none;
+  border-color: #999;
+  background-color: #fff;
+}
+
+.pets-form textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+.pets-form .no-owner-msg {
+  font-size: 13px;
+  color: #999;
+  font-style: italic;
+}
+
+.form-buttons-pets {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-primary {
+  background-color: #222;
+  color: #fff;
+  border: none;
+  padding: 9px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #444;
+}
+
+.btn-secondary {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 9px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #f0f0f0;
+}
+
+.search-input-pets {
+  width: 100%;
+  max-width: 480px;
+  padding: 9px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #fafafa;
+  margin-bottom: 16px;
+}
+
+.search-input-pets:focus {
+  outline: none;
+  border-color: #999;
+  background-color: #fff;
+}
+
+.pets-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.pets-table th {
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #888;
+  border-bottom: 2px solid #e5e5e5;
+}
+
+.pets-table td {
+  padding: 11px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #333;
+}
+
+.pets-table tr:hover td {
+  background-color: #fafafa;
+}
+
+.btn-detail {
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.btn-edit {
+  background-color: #222;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.btn-delete {
+  background-color: #fff;
+  color: #c0392b;
+  border: 1px solid #c0392b;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn-detail:hover {
+  background-color: #e5e5e5;
+}
+
+.btn-edit:hover {
+  background-color: #444;
+}
+
+.btn-delete:hover {
+  background-color: #fdf0ef;
+}
+
+.detail-box-pets {
+  background-color: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 20px 24px;
+  max-width: 480px;
+  margin-top: 8px;
+}
+
+.detail-box-pets h2 {
+  margin-bottom: 12px;
+}
+
+.detail-box-pets p {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.detail-box-pets h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 14px 0 8px;
+  color: #333;
+}
+
+.detail-box-pets ul {
+  padding-left: 18px;
+  font-size: 14px;
+  color: #555;
+}
+
+.detail-box-pets ul li {
+  margin-bottom: 4px;
+}

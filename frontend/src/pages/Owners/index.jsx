@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ownersService } from "../../services/resourceService.jsx";
+import "./OwnersPage.css";
 
 const emptyForm = {
   name: "",
@@ -126,75 +127,57 @@ export default function OwnersPage() {
   }
 
   return (
-    <div>
+    <div className="owners-container">
       <h1>Donos</h1>
       <p>Gerencie os responsáveis pelos pets cadastrados.</p>
 
       {message && (
-        <p>
-          {message}{" "}
-          <button type="button" onClick={() => setMessage("")}>
-            X
-          </button>
-        </p>
+        <div className="mensagem">
+          <span>{message}</span>
+          <button type="button" onClick={() => setMessage("")}>X</button>
+        </div>
       )}
 
       <hr />
       <h2>{editingOwner ? "Editar dono" : "Novo dono"}</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="owners-form" onSubmit={handleSubmit}>
         <div>
           <label>Nome</label>
-          <br />
           <input name="name" value={form.name} onChange={handleChange} />
         </div>
         <div>
           <label>Documento</label>
-          <br />
-          <input
-            name="document"
-            value={form.document}
-            onChange={handleChange}
-          />
+          <input name="document" value={form.document} onChange={handleChange} />
         </div>
         <div>
           <label>Telefone</label>
-          <br />
           <input name="phone" value={form.phone} onChange={handleChange} />
         </div>
         <div>
           <label>Email</label>
-          <br />
-          <input
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-          />
+          <input type="email" name="email" value={form.email} onChange={handleChange} />
         </div>
         <div>
           <label>Endereço</label>
-          <br />
-          <textarea
-            name="address"
-            value={form.address}
-            onChange={handleChange}
-          />
+          <textarea name="address" value={form.address} onChange={handleChange} />
         </div>
-        <br />
-        <button type="submit">
-          {editingOwner ? "Salvar alterações" : "Cadastrar dono"}
-        </button>
-        {editingOwner && (
-          <button type="button" onClick={clearForm}>
-            Cancelar
+        <div className="form-buttons">
+          <button type="submit" className="btn-primary">
+            {editingOwner ? "Salvar alterações" : "Cadastrar dono"}
           </button>
-        )}
+          {editingOwner && (
+            <button type="button" className="btn-secondary" onClick={clearForm}>
+              Cancelar
+            </button>
+          )}
+        </div>
       </form>
 
       <hr />
       <h2>Lista de donos</h2>
       <p>Total de donos cadastrados: {owners.length}</p>
       <input
+        className="search-input"
         placeholder="Buscar por nome, documento, telefone, email ou endereço"
         value={search}
         onChange={(event) => setSearch(event.target.value)}
@@ -204,7 +187,7 @@ export default function OwnersPage() {
       {filteredOwners.length === 0 ? (
         <p>Nenhum dono encontrado.</p>
       ) : (
-        <table border="1" cellPadding="5">
+        <table className="owners-table">
           <thead>
             <tr>
               <th>Nome</th>
@@ -222,9 +205,9 @@ export default function OwnersPage() {
                 <td>{owner.phone}</td>
                 <td>{owner.email}</td>
                 <td>
-                  <button onClick={() => handleDetails(owner)}>Detalhes</button>
-                  <button onClick={() => handleEdit(owner)}>Editar</button>
-                  <button onClick={() => handleDelete(owner)}>Excluir</button>
+                  <button className="btn-detail" onClick={() => handleDetails(owner)}>Detalhes</button>
+                  <button className="btn-edit" onClick={() => handleEdit(owner)}>Editar</button>
+                  <button className="btn-delete" onClick={() => handleDelete(owner)}>Excluir</button>
                 </td>
               </tr>
             ))}
@@ -233,8 +216,7 @@ export default function OwnersPage() {
       )}
 
       {detailOwner && (
-        <div>
-          <hr />
+        <div className="detail-box">
           <h2>Detalhes do dono</h2>
           <p><strong>Nome:</strong> {detailOwner.name}</p>
           <p><strong>Documento:</strong> {detailOwner.document}</p>
@@ -251,7 +233,7 @@ export default function OwnersPage() {
           ) : (
             <p>Nenhum pet vinculado.</p>
           )}
-          <button onClick={() => setDetailOwner(null)}>Fechar detalhes</button>
+          <button className="btn-secondary" onClick={() => setDetailOwner(null)}>Fechar detalhes</button>
         </div>
       )}
     </div>

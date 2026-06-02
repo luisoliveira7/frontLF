@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ownersService, petsService } from "../../services/resourceService.jsx";
+import "./PetsPage.css";
 
 const emptyForm = {
   name: "",
@@ -174,31 +175,34 @@ export default function PetsPage() {
   }
 
   return (
-    <div>
+    <div className="pets-container">
       <h1>Pets</h1>
       <p>Cadastre e acompanhe os animais atendidos pelo petshop.</p>
-      {message && <p>{message}</p>}
+
+      {message && (
+        <div className="mensagem-pets">
+          <span>{message}</span>
+          <button type="button" onClick={() => setMessage("")}>X</button>
+        </div>
+      )}
+
       <hr />
       <h2>{editingPet ? "Editar pet" : "Novo pet"}</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="pets-form" onSubmit={handleSubmit}>
         <div>
           <label>Nome</label>
-          <br />
           <input name="name" value={form.name} onChange={handleChange} />
         </div>
         <div>
           <label>Espécie</label>
-          <br />
           <input name="species" value={form.species} onChange={handleChange} />
         </div>
         <div>
           <label>Raça</label>
-          <br />
           <input name="breed" value={form.breed} onChange={handleChange} />
         </div>
         <div>
           <label>Porte</label>
-          <br />
           <select name="size" value={form.size} onChange={handleChange}>
             <option value="small">Pequeno</option>
             <option value="medium">Médio</option>
@@ -207,32 +211,16 @@ export default function PetsPage() {
         </div>
         <div>
           <label>Idade</label>
-          <br />
-          <input
-            type="number"
-            name="age"
-            min="0"
-            value={form.age}
-            onChange={handleChange}
-          />
+          <input type="number" name="age" min="0" value={form.age} onChange={handleChange} />
         </div>
         <div>
           <label>Peso kg</label>
-          <br />
-          <input
-            type="number"
-            name="weight"
-            min="0"
-            step="0.1"
-            value={form.weight}
-            onChange={handleChange}
-          />
+          <input type="number" name="weight" min="0" step="0.1" value={form.weight} onChange={handleChange} />
         </div>
         <div>
           <label>Dono</label>
-          <br />
           {owners.length === 0 ? (
-            <p>Nenhum dono cadastrado. Cadastre um dono antes de adicionar um pet.</p>
+            <p className="no-owner-msg">Nenhum dono cadastrado. Cadastre um dono antes de adicionar um pet.</p>
           ) : (
             <select name="ownerId" value={form.ownerId} onChange={handleChange}>
               <option value="">Selecione</option>
@@ -246,22 +234,24 @@ export default function PetsPage() {
         </div>
         <div>
           <label>Observações</label>
-          <br />
           <textarea name="notes" value={form.notes} onChange={handleChange} />
         </div>
-        <br />
-        <button type="submit">
-          {editingPet ? "Salvar alterações" : "Cadastrar pet"}
-        </button>
-        {editingPet && (
-          <button type="button" onClick={clearForm}>
-            Cancelar
+        <div className="form-buttons-pets">
+          <button type="submit" className="btn-primary">
+            {editingPet ? "Salvar alterações" : "Cadastrar pet"}
           </button>
-        )}
+          {editingPet && (
+            <button type="button" className="btn-secondary" onClick={clearForm}>
+              Cancelar
+            </button>
+          )}
+        </div>
       </form>
+
       <hr />
       <h2>Lista de pets</h2>
       <input
+        className="search-input-pets"
         placeholder="Buscar por nome, espécie, raça, dono ou observações"
         value={search}
         onChange={(event) => setSearch(event.target.value)}
@@ -271,7 +261,7 @@ export default function PetsPage() {
       {filteredPets.length === 0 ? (
         <p>Nenhum pet encontrado.</p>
       ) : (
-        <table border="1" cellPadding="5">
+        <table className="pets-table">
           <thead>
             <tr>
               <th>Nome</th>
@@ -291,18 +281,18 @@ export default function PetsPage() {
                 <td>{getSizeText(pet.size)}</td>
                 <td>{pet.owner?.name || "-"}</td>
                 <td>
-                  <button onClick={() => handleDetails(pet)}>Detalhes</button>
-                  <button onClick={() => handleEdit(pet)}>Editar</button>
-                  <button onClick={() => handleDelete(pet)}>Excluir</button>
+                  <button className="btn-detail" onClick={() => handleDetails(pet)}>Detalhes</button>
+                  <button className="btn-edit" onClick={() => handleEdit(pet)}>Editar</button>
+                  <button className="btn-delete" onClick={() => handleDelete(pet)}>Excluir</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
+
       {detailPet && (
-        <div>
-          <hr />
+        <div className="detail-box-pets">
           <h2>Detalhes do pet</h2>
           <p><strong>Nome:</strong> {detailPet.name}</p>
           <p><strong>Dono:</strong> {detailPet.owner?.name || "-"}</p>
@@ -326,7 +316,7 @@ export default function PetsPage() {
           ) : (
             <p>Nenhum atendimento registrado.</p>
           )}
-          <button onClick={() => setDetailPet(null)}>Fechar detalhes</button>
+          <button className="btn-secondary" onClick={() => setDetailPet(null)}>Fechar detalhes</button>
         </div>
       )}
     </div>
