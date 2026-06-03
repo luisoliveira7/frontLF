@@ -37,10 +37,7 @@ export default function OwnersPage() {
 
   function handleChange(event) {
     const { name, value } = event.target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
+    setForm({ ...form, [name]: value });
   }
 
   function clearForm() {
@@ -50,13 +47,7 @@ export default function OwnersPage() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    if (
-      !form.name ||
-      !form.document ||
-      !form.phone ||
-      !form.email ||
-      !form.address
-    ) {
+    if (!form.name || !form.document || !form.phone || !form.email || !form.address) {
       setMessage("Preencha todos os campos.");
       return;
     }
@@ -132,8 +123,8 @@ export default function OwnersPage() {
       <p>Gerencie os responsáveis pelos pets cadastrados.</p>
 
       {message && (
-        <div className="mensagem">
-          <span>{message}</span>
+        <div>
+          <p>{message}</p>
           <button type="button" onClick={() => setMessage("")}>X</button>
         </div>
       )}
@@ -161,7 +152,7 @@ export default function OwnersPage() {
           <label>Endereço</label>
           <textarea name="address" value={form.address} onChange={handleChange} />
         </div>
-        <div className="form-buttons">
+        <div>
           <button type="submit" className="btn-primary">
             {editingOwner ? "Salvar alterações" : "Cadastrar dono"}
           </button>

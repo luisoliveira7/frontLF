@@ -43,10 +43,7 @@ export default function PetsPage() {
 
   function handleChange(event) {
     const { name, value } = event.target;
-    setForm({
-      ...form,
-      [name]: value,
-    });
+    setForm({ ...form, [name]: value });
   }
 
   function clearForm() {
@@ -68,10 +65,7 @@ export default function PetsPage() {
 
   function formatMoney(value) {
     if (!value) return "R$ 0,00";
-    return Number(value).toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
+    return Number(value).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   }
 
   function getStatusText(status) {
@@ -84,14 +78,7 @@ export default function PetsPage() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    if (
-      !form.name ||
-      !form.species ||
-      !form.breed ||
-      !form.ownerId ||
-      !form.age ||
-      !form.weight
-    ) {
+    if (!form.name || !form.species || !form.breed || !form.ownerId || !form.age || !form.weight) {
       setMessage("Preencha os campos obrigatórios.");
       return;
     }
@@ -179,12 +166,7 @@ export default function PetsPage() {
       <h1>Pets</h1>
       <p>Cadastre e acompanhe os animais atendidos pelo petshop.</p>
 
-      {message && (
-        <div className="mensagem-pets">
-          <span>{message}</span>
-          <button type="button" onClick={() => setMessage("")}>X</button>
-        </div>
-      )}
+      {message && <p>{message}</p>}
 
       <hr />
       <h2>{editingPet ? "Editar pet" : "Novo pet"}</h2>
@@ -220,14 +202,12 @@ export default function PetsPage() {
         <div>
           <label>Dono</label>
           {owners.length === 0 ? (
-            <p className="no-owner-msg">Nenhum dono cadastrado. Cadastre um dono antes de adicionar um pet.</p>
+            <p>Nenhum dono cadastrado. Cadastre um dono antes de adicionar um pet.</p>
           ) : (
             <select name="ownerId" value={form.ownerId} onChange={handleChange}>
               <option value="">Selecione</option>
               {owners.map((owner) => (
-                <option key={owner.id} value={owner.id}>
-                  {owner.name}
-                </option>
+                <option key={owner.id} value={owner.id}>{owner.name}</option>
               ))}
             </select>
           )}
@@ -236,7 +216,7 @@ export default function PetsPage() {
           <label>Observações</label>
           <textarea name="notes" value={form.notes} onChange={handleChange} />
         </div>
-        <div className="form-buttons-pets">
+        <div>
           <button type="submit" className="btn-primary">
             {editingPet ? "Salvar alterações" : "Cadastrar pet"}
           </button>
@@ -251,7 +231,7 @@ export default function PetsPage() {
       <hr />
       <h2>Lista de pets</h2>
       <input
-        className="search-input-pets"
+        className="search-input"
         placeholder="Buscar por nome, espécie, raça, dono ou observações"
         value={search}
         onChange={(event) => setSearch(event.target.value)}
@@ -292,7 +272,7 @@ export default function PetsPage() {
       )}
 
       {detailPet && (
-        <div className="detail-box-pets">
+        <div className="detail-box">
           <h2>Detalhes do pet</h2>
           <p><strong>Nome:</strong> {detailPet.name}</p>
           <p><strong>Dono:</strong> {detailPet.owner?.name || "-"}</p>

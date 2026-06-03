@@ -1,0 +1,78 @@
+/* importa fonte do google */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+/* reseta margem e padding de todos os elementos */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ocupa a tela toda e centraliza o formulario no meio */
+.login-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  font-family: 'Inter', sans-serif;
+}
+
+/* caixa do formulario centralizada */
+.login-page form {
+  background: #fff;
+  padding: 36px 32px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* titulo do formulario */
+.login-page h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+/* campos de email e senha */
+.login-page input {
+  padding: 9px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.login-page input:focus {
+  outline: none;
+  border-color: #999;
+}
+
+/* mensagem de erro */
+.login-page p {
+  font-size: 13px;
+  color: #c0392b;
+}
+
+/* botao de entrar */
+.login-page button {
+  background: #222;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+/* botao desabilitado enquanto carrega */
+.login-page button:disabled {
+  background: #999;
+  cursor: not-allowed;
+}

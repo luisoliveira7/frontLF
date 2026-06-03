@@ -1,270 +1,163 @@
+/* importa fonte do google */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+/* reseta margem e padding de todos os elementos */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* container principal da pagina, centralizado com largura maxima */
 .pets-container {
-  max-width: 860px;
-  margin: 40px auto;
-  padding: 0 24px;
-  font-family: 'Segoe UI', sans-serif;
-  color: #222;
-}
-
-.pets-container h1 {
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.pets-container h2 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 16px;
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
   color: #333;
 }
 
-.pets-container > p {
-  color: #777;
-  font-size: 14px;
-  margin-bottom: 20px;
-}
-
+/* linha que separa as secoes da pagina */
 .pets-container hr {
   border: none;
-  border-top: 1px solid #e5e5e5;
-  margin: 28px 0;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
 }
 
-.mensagem-pets {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #f5f5f5;
-  border-left: 3px solid #222;
-  padding: 10px 14px;
-  border-radius: 4px;
-  font-size: 14px;
-  margin-bottom: 16px;
-  color: #333;
-}
-
-.mensagem-pets button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 13px;
-  color: #888;
-  font-weight: 600;
-}
-
-.mensagem-pets button:hover {
-  color: #222;
-}
-
+/* formulario organizado em coluna com espaco entre os campos */
 .pets-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 480px;
+  gap: 10px;
+  max-width: 450px;
 }
 
+/* texto do label acima de cada campo */
 .pets-form label {
-  display: block;
   font-size: 13px;
   font-weight: 600;
-  color: #444;
-  margin-bottom: 5px;
 }
 
+/* estilo aplicado em todos os campos do formulario */
 .pets-form input,
-.pets-form textarea,
-.pets-form select {
-  width: 100%;
-  padding: 9px 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+.pets-form select,
+.pets-form textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   font-size: 14px;
-  color: #222;
-  background-color: #fafafa;
-  transition: border-color 0.2s;
+  width: 100%;
 }
 
-.pets-form input:focus,
-.pets-form textarea:focus,
-.pets-form select:focus {
-  outline: none;
-  border-color: #999;
-  background-color: #fff;
-}
-
+/* textarea pode ser redimensionado pelo usuario */
 .pets-form textarea {
   resize: vertical;
-  min-height: 72px;
+  min-height: 65px;
 }
 
-.pets-form .no-owner-msg {
-  font-size: 13px;
-  color: #999;
-  font-style: italic;
-}
-
-.form-buttons-pets {
-  display: flex;
-  gap: 10px;
-}
-
-.btn-primary {
-  background-color: #222;
-  color: #fff;
-  border: none;
-  padding: 9px 20px;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.btn-primary:hover {
-  background-color: #444;
-}
-
-.btn-secondary {
-  background-color: #fff;
-  color: #333;
+/* campo de busca fora do formulario */
+.search-input {
+  padding: 8px;
   border: 1px solid #ccc;
-  padding: 9px 20px;
-  border-radius: 6px;
+  border-radius: 5px;
   font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.btn-secondary:hover {
-  background-color: #f0f0f0;
-}
-
-.search-input-pets {
   width: 100%;
-  max-width: 480px;
-  padding: 9px 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 14px;
-  background-color: #fafafa;
-  margin-bottom: 16px;
+  max-width: 450px;
+  margin-bottom: 12px;
 }
 
-.search-input-pets:focus {
-  outline: none;
-  border-color: #999;
-  background-color: #fff;
-}
-
+/* tabela ocupa toda a largura sem bordas duplicadas */
 .pets-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
 }
 
+/* cabecalho da tabela em letras pequenas e maiusculas */
 .pets-table th {
   text-align: left;
-  padding: 10px 12px;
+  padding: 8px;
+  border-bottom: 2px solid #ddd;
+  color: #666;
   font-size: 12px;
-  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #888;
-  border-bottom: 2px solid #e5e5e5;
 }
 
+/* celulas com borda inferior para separar as linhas */
 .pets-table td {
-  padding: 11px 12px;
-  border-bottom: 1px solid #f0f0f0;
-  color: #333;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
 }
 
-.pets-table tr:hover td {
-  background-color: #fafafa;
-}
-
-.btn-detail {
-  background-color: #f0f0f0;
-  color: #333;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 12px;
-  cursor: pointer;
-  margin-right: 4px;
-}
-
-.btn-edit {
-  background-color: #222;
+/* botao principal escuro, usado para salvar */
+.btn-primary {
+  background: #222;
   color: #fff;
   border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 12px;
+  padding: 8px 16px;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 14px;
+}
+
+/* botao secundario claro, usado para cancelar */
+.btn-secondary {
+  background: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+/* botao de detalhes na tabela */
+.btn-detail {
+  background: #eee;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
   margin-right: 4px;
 }
 
+/* botao de editar na tabela */
+.btn-edit {
+  background: #222;
+  color: #fff;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+/* botao de excluir na tabela, apenas borda vermelha sem fundo */
 .btn-delete {
-  background-color: #fff;
+  background: #fff;
   color: #c0392b;
   border: 1px solid #c0392b;
-  padding: 5px 10px;
+  padding: 4px 8px;
   border-radius: 4px;
-  font-size: 12px;
   cursor: pointer;
+  font-size: 12px;
 }
 
-.btn-detail:hover {
-  background-color: #e5e5e5;
+/* caixa que aparece ao clicar em detalhes */
+.detail-box {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 16px;
+  max-width: 450px;
+  margin-top: 16px;
 }
 
-.btn-edit:hover {
-  background-color: #444;
-}
-
-.btn-delete:hover {
-  background-color: #fdf0ef;
-}
-
-.detail-box-pets {
-  background-color: #fafafa;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
-  padding: 20px 24px;
-  max-width: 480px;
-  margin-top: 8px;
-}
-
-.detail-box-pets h2 {
-  margin-bottom: 12px;
-}
-
-.detail-box-pets p {
+/* paragrafos dentro da caixa de detalhes */
+.detail-box p {
   font-size: 14px;
-  color: #444;
-  margin-bottom: 6px;
-}
-
-.detail-box-pets h3 {
-  font-size: 14px;
-  font-weight: 600;
-  margin: 14px 0 8px;
-  color: #333;
-}
-
-.detail-box-pets ul {
-  padding-left: 18px;
-  font-size: 14px;
-  color: #555;
-}
-
-.detail-box-pets ul li {
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
